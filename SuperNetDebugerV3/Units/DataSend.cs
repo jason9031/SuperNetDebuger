@@ -27,12 +27,26 @@ namespace LeafSoft.Units
         /// </summary>
         bool AutoSend = false;
 
+        int m_NowSendTimes = 0；
+
         public DataSend()
         {
             InitializeComponent();
             dgCMD.AutoGenerateColumns = false;
             lstCMD.Add(new Model.CMD(EnumType.CMDType.ASCII, new ASCIIEncoding().GetBytes("I Love QiQi Forever!")));
+            lstCMD.Add(new Model.CMD(EnumType.CMDType.HexString, (HexStrTobyte("02540BF2368A4304AA959C690100010000000600FF0003"))));
+            lstCMD.Add(new Model.CMD(EnumType.CMDType.Hex, new ASCIIEncoding().GetBytes("123")));
             dgCMD.DataSource = lstCMD;
+        }
+        private byte[] HexStrTobyte(string hexString)
+        {
+            hexString = hexString.Replace(" ", "");
+            if ((hexString.Length % 2) != 0)
+                hexString += " ";
+            byte[] returnBytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < returnBytes.Length; i++)
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2).Trim(), 16);
+            return returnBytes;
         }
 
         private void dgCMD_CellContentClick(object sender, DataGridViewCellEventArgs e)

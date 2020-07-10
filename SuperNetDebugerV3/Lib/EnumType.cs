@@ -16,7 +16,8 @@ namespace LeafSoft.Lib
         /// 命令类型
         /// </summary>
         public enum CMDType
-        { 
+        {
+            HexString,
             Hex,
             ASCII
         }

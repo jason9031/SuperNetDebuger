@@ -26,6 +26,13 @@ namespace LeafSoft.Model
             _byteCMD = data;
             switch (_cmdtype)
             {
+                case EnumType.CMDType.HexString:
+                    foreach (byte b in _byteCMD)
+                    {
+                        _strCMD += string.Format("{0:X2} ", b);
+                    }
+                    _strCMD = _strCMD.TrimEnd();
+                    break;
                 case EnumType.CMDType.Hex:
                     foreach (byte b in _byteCMD)
                     {
